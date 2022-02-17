@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "parcel": "^2.3.1"
+  },
+  "name": "driver-js-wrapper",
+  "version": "1.0.0",
+  "description": "wrapper around driver.js to provide comfortable async handling",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "halws",
+  "license": "MIT"
+}
