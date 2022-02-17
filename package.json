@@ -5,10 +5,16 @@
   "name": "driver-js-wrapper",
   "version": "1.0.0",
   "description": "wrapper around driver.js to provide comfortable async handling",
-  "main": "src/index.js",
+  "source": "src/index.js",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "parcel watch",
+    "build": "parcel build"
   },
   "author": "halws",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "driver.js": "^0.9.8"
+  }
 }
