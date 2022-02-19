@@ -29,7 +29,7 @@ Problem occurs when defining the steps via original `defineSteps()`. Here it ite
 - Delaying is possible to do inside `onNext()` or  `onPrev()` functions inside steps configuration JSON. In more advanced scenario you could wait for some AJAX request, etc. then call `refreshSteps()`
 
 ### Initial call
-```
+```js
 const driver = new Driver();
 const mainConfig = {...}; // driver.js options 
 
@@ -44,7 +44,7 @@ driver
 ## Defining a steps
 
 Back to example with two steps, where 2nd step highlight dynamically created element
-```
+```js
 const stepsConfig = (Driver) => [
     {
         element: '#step-1',
@@ -61,7 +61,7 @@ const stepsConfig = (Driver) => [
                 .preventMove()
 
             // required delay to make DOM element #step-2 became visible
-            // i use delay() as promise-based function
+            // I use delay() as promise-based function, but it possible to wrap code bellow with setTimeout()
             await delay(500)
 
             Driver
@@ -81,6 +81,7 @@ const stepsConfig = (Driver) => [
 
 Examples
 
+
 Useful
 
 
@@ -99,3 +100,4 @@ Useful
 
 TO-DO
 
+- [ ] add TS support
