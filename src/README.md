@@ -1,24 +1,28 @@
-# Purpose
-Driver.js is a nice and easy to use library for highlighted showcase tour. The only cumbersome use case for me was handling steps on dynamically created elements. There is an [issue](https://github.com/kamranahmedse/driver.js/issues/162), where multiple driver solution was proposed. So, I've used that one, and created this wrapper to handle edge cases (mostly) by plugin.  
+## Purpose
+[Driver.js](https://github.com/kamranahmedse/driver.js) is a nice and easy to use library for highlighted showcase tour. The only cumbersome use case for me was handling steps on dynamically created elements. There is an [issue](https://github.com/kamranahmedse/driver.js/issues/162), where multiple driver solution was proposed. So, I've used that one, and created this wrapper to handle edge cases (mostly) by plugin.  
 
-Install using npm:
+
+# Usage and demo
+
+## Install using npm:
 
 ```bash
 $ npm install driver-js-dynamic-wrapper
 ```
 
-## Import and register Vue plugin:
+## Get started:
 
-I didn't touch original driver.js code, just packed it here with styles.
 
 ```js
 import Driver from 'driver-js-dynamic-wrapper'
-import 'driver-js-dynamic-wrapper/dist/driver.min.css';
+import 'driver.js/dist/driver.min.css';
 ```
 
-# Usage and demo
+*I didn't touch original driver.js code, you can access all the methods of [driver.js](https://github.com/kamranahmedse/driver.js#api-methods)*
 
-## Creating multiple steps on dynamic elements. Original source [link]
+***
+
+## Creating multiple steps on dynamic elements. [Original source](https://github.com/kamranahmedse/driver.js#asynchronous-actions--demo)
 
 ### Problem explanation
 
@@ -79,11 +83,14 @@ const stepsConfig = (Driver) => [
 ];  
 ```
 
-Examples
+## API
 
 
-Useful
 
+## Examples
+
+
+## Useful
 
 - <details>
     <summary>promise-based function delay()</summary>
@@ -95,9 +102,25 @@ Useful
     ```
     </details>
 - link to vue-js plugin
-- css fixes
+- <details>
+    <summary>css fixes</summary>
+    
+     **stacking bug when animated with children of fixed elements**
+
+     https://github.com/kamranahmedse/driver.js/issues/133#issuecomment-549714982
+    ```css
+        div#driver-highlighted-element-stage, div#driver-page-overlay {
+        background: transparent !important;
+        outline: 5000px solid rgba(0, 0, 0, .75)
+        }
+    ```
+    </details>
+
+
+
 
 
 TO-DO
 
 - [ ] add TS support
+- [ ] add testing
