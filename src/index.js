@@ -6,6 +6,11 @@ export default class Driver {
     currentStep = 0
     lockClick = false
 
+    /**
+     * initialize instance
+     * @param {Object} [opt] optional driver.js options https://github.com/kamranahmedse/driver.js#driver-definition
+     * @returns @this {Driver}
+     */
     init(opt = {}) {
         this.instance = new DriverJs({
             ...opt,
@@ -21,6 +26,12 @@ export default class Driver {
         this.lockClick = true
     }
 
+    /**
+     * should always be called when the next element is about to be highlighted when defining dynamical steps;
+     * it locks click and set step count 
+     * @param {Object} driver.js Element 
+     * @returns @this {Driver}
+     */
     onNext({ node }) {
         this.$lockClick()
         this.currentStep = this.$getLastIndex(node) + 1
@@ -28,6 +39,12 @@ export default class Driver {
         return this
     }
 
+    /**
+     * should always be called when the previous element is about to be highlighted when defining dynamical steps;
+     * it locks click and set step count 
+     * @param {Object} driver.js Element 
+     * @returns @this {Driver}
+     */
     onPrev({ node }) {
         this.$lockClick()
         this.currentStep = this.$getLastIndex(node) - 1
@@ -43,6 +60,11 @@ export default class Driver {
         this.lockClick = false
     }
 
+    /**
+     * set steps 
+     * @param {Array} steps configuration of steps to be driven throw
+     * @returns @this {Driver}
+     */
     defineSteps(steps = []) {
         this.steps = steps
         this.instance.defineSteps(steps)
@@ -50,25 +72,38 @@ export default class Driver {
         return this
     }
 
+    /**
+     * refresh steps 
+     * @returns @this {Driver}
+     */
     refreshSteps() {
         this.defineSteps(this.steps)
 
         return this
     }
 
-    setDefaultValues() {
+    $setDefaultValues() {
         this.defineSteps()
         this.currentStep = 0
         this.lockClick = false
     }
 
+    /**
+     * reset tour to initial state 
+     * @returns @this {Driver}
+     */
     reset() {
-        this.setDefaultValues()
+        this.$setDefaultValues()
         this.instance.reset()
 
         return this
     }
 
+    /**
+     * start tour from step, accept numbers
+     * @param {Number} [stepNumber] set step to be started from
+     * @returns @this {Driver}
+     */
     start(stepNumber = 0) {
         this.instance.start(stepNumber)
         this.$setCurrentStep()
@@ -80,18 +115,29 @@ export default class Driver {
         this.currentStep = this.$getLastIndex(stepNode)
     }
 
+    /**
+     * prevent move next step 
+     * @returns @this {Driver}
+     */
     preventMove() {
         this.instance.preventMove()
 
         return this
     }
 
+    /**
+     *  move next step 
+     * @returns @this {Driver}
+     */
     moveNext() {
         this.instance.moveNext()
 
         return this
     }
 
+    /**
+     * continue tour; it tries to get next visible step and start tour from it 
+     */
     continue() {
         const nextStep = this.steps[this.currentStep];
         const stepId = nextStep.element
