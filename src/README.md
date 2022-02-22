@@ -18,8 +18,6 @@ import Driver from 'driver-js-dynamic-wrapper'
 import 'driver.js/dist/driver.min.css';
 ```
 
-*I didn't touch original driver.js code, you can access all the methods of [driver.js](https://github.com/kamranahmedse/driver.js#api-methods)*
-
 ***
 
 ## Creating multiple steps on dynamic elements. [Original source](https://github.com/kamranahmedse/driver.js#asynchronous-actions--demo)
@@ -68,7 +66,6 @@ const stepsConfig = (Driver) => [
             // I use delay() as promise-based function, but it possible to wrap code bellow with setTimeout()
             await delay(500)
 
-            Driver
                 .refreshSteps()
                 .continue()
         }
@@ -85,7 +82,20 @@ const stepsConfig = (Driver) => [
 
 ## API
 
+*I didn't touch original driver.js code, you can access all the methods of [driver.js](https://github.com/kamranahmedse/driver.js#api-methods)*. 
+Some of this methods have the same name as in original plugin. They do the same functionality. I've duplicated them to make it chainable.
 
+| method                     | description                                                                         |
+| -------------------------- | ----------------------------------------------------------------------------------- |
+| `init(opt = {})`           | initialize instance; receives all original options from driver.js                   |
+| `handleNext({ node })`     | locks double click; handle step number; should always be called inside onNext()     |
+| `handlePrevious({ node })` | locks double click; handle step number; should always be called inside onPrevious() |
+| `defineSteps(steps = [])`  | set steps; receives Array of step's definition.                                     |
+| `refreshSteps()`           | refresh steps for tour; should be called after delay to catch DOM elements          |
+| `reset()`                  | reset all steps and the tour to 0                                                   |
+| `start(stepNumber = 0)`    | start tour from specified step, accept numbers                                      |
+| `preventMove()`            | prevent moving next step                                                            |
+| `continue()`               | continue tour; it tries to get next visible step and start tour from it             |
 
 ## Examples
 
@@ -101,7 +111,6 @@ const stepsConfig = (Driver) => [
     }   
     ```
     </details>
-- link to vue-js plugin
 - <details>
     <summary>css fixes</summary>
     
@@ -115,12 +124,10 @@ const stepsConfig = (Driver) => [
         }
     ```
     </details>
-
-
-
-
+- link to vue-js plugin
 
 TO-DO
 
 - [ ] add TS support
-- [ ] add testing
+- [ ] add tests
+- [ ] add Cypress-like get() syntax to catch elements automatically without manual timeout
