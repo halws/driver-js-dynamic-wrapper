@@ -28,7 +28,7 @@ Problem occurs when defining the steps via original `defineSteps()`. Here it ite
 
 - Refreshing steps meant to update original driver.js steps to make it catch all currently visible DOM elements defined in steps configuration.
 - Consider you move from first steps to second. The 2nd step highlight  dynamically created element after some action. For example this action take a 500ms. To make `refreshSteps()` "pick up" step you should delay before.
-- Delaying is possible to do inside `onNext()` or  `onPrev()` functions inside steps configuration JSON. In more advanced scenario you could wait for some AJAX request, etc. then call `refreshSteps()`
+- Delaying is possible to do inside `onNext()` or  `onPrevious()` functions inside steps configuration JSON. In more advanced scenario you could wait for some AJAX request, etc. then call `refreshSteps()`
 
 ### Initial call
 ```js
@@ -59,7 +59,7 @@ const stepsConfig = (Driver) => [
             if (Driver.lockClick) return Driver.preventMove()
 
             Driver
-                .onNext(Element)
+                .handleNext(Element)
                 .preventMove()
 
             // required delay to make DOM element #step-2 became visible
