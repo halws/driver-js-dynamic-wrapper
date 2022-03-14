@@ -130,4 +130,5 @@ TO-DO
 
 - [ ] add TS support
 - [ ] add tests
+- [ ] add example with multiple scenarios
 - [ ] add Cypress-like get() syntax to catch elements automatically without manual timeout
