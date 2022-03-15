@@ -1,21 +1,20 @@
 import DriverJs from 'driver.js';
-
 export default class Driver {
     instance
     steps = []
     currentStep = 0
     lockClick = false
-
+    
     /**
-     * initialize instance
-     * @param {Object} [opt] optional driver.js options https://github.com/kamranahmedse/driver.js#driver-definition
-     * @returns @this {Driver}
-     */
+    * initialize instance
+    * @param {Object} [opt] optional driver.js options https://github.com/kamranahmedse/driver.js#driver-definition
+    * @returns @this {Driver}
+    */
     init(opt = {}) {
         this.instance = new DriverJs({
             ...opt,
-            onNext: this.onNext.bind(this),
-            onPrevious: this.onPrev.bind(this),
+            onNext: this.handleNext.bind(this),
+            onPrevious: this.handlePrevious.bind(this),
             onHighlighted: this.$onHighlighted.bind(this)
         })
 
@@ -32,7 +31,7 @@ export default class Driver {
      * @param {Object} driver.js Element 
      * @returns @this {Driver}
      */
-    onNext({ node }) {
+    handleNext({ node }) {
         this.$lockClick()
         this.currentStep = this.$getLastIndex(node) + 1
 
@@ -45,7 +44,7 @@ export default class Driver {
      * @param {Object} driver.js Element 
      * @returns @this {Driver}
      */
-    onPrev({ node }) {
+    handlePrevious({ node }) {
         this.$lockClick()
         this.currentStep = this.$getLastIndex(node) - 1
 

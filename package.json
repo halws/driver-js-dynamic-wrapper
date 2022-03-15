@@ -3,8 +3,17 @@
   "version": "0.0.0",
   "description": "wrapper around driver.js to provide comfortable async handling",
   "main": "dist/main.js",
+  "css": "dist/style.css",
   "source": "src/index.js",
   "module": "dist/module.js",
+  "targets": {
+    "main": {
+      "source": "src/index.js"
+    },
+    "css": {
+      "source": "src/style.scss"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "parcel watch",
@@ -16,6 +25,10 @@
     "driver.js": "^0.9.8"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.3.1",
     "parcel": "^2.3.1"
+  },
+  "peerDependencies": {
+    "driver.js": ">=0.9.x"
   }
 }
