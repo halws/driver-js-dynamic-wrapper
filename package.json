@@ -3,11 +3,18 @@
   "version": "0.0.2",
   "description": "wrapper around driver.js to provide comfortable async handling",
   "main": "dist/main.js",
+  "module": "dist/module.js",
   "css": "dist/style.css",
   "source": "src/index.js",
   "targets": {
     "main": {
-      "source": "src/index.js"
+      "source": "src/index.js",
+      "includeNodeModules": true,
+      "isLibrary": true
+    },
+    "module": {
+      "source": "src/index.js",
+      "outputFormat": "esmodule"
     },
     "css": {
       "source": "src/style.scss"
