@@ -5,7 +5,6 @@
   "main": "dist/main.js",
   "css": "dist/style.css",
   "source": "src/index.js",
-  "module": "dist/module.js",
   "targets": {
     "main": {
       "source": "src/index.js"
