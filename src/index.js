@@ -1,147 +1,150 @@
-import DriverJs from 'driver.js';
+import DriverJs from "driver.js";
 export default class Driver {
-    instance
-    steps = []
-    currentStep = 0
-    lockClick = false
-    
-    /**
-    * initialize instance
-    * @param {Object} [opt] optional driver.js options https://github.com/kamranahmedse/driver.js#driver-definition
-    * @returns @this {Driver}
-    */
-    init(opt = {}) {
-        this.instance = new DriverJs({
-            ...opt,
-            onNext: this.handleNext.bind(this),
-            onPrevious: this.handlePrevious.bind(this),
-            onHighlighted: this.$onHighlighted.bind(this)
-        })
+  instance;
+  steps = [];
+  currentStep = 0;
+  lockClick = false;
 
-        return this
-    }
+  /**
+   * initialize instance
+   * @param {Object} [opt] optional driver.js options https://github.com/kamranahmedse/driver.js#driver-definition
+   * @returns @this {Driver}
+   */
+  init(opt = {}) {
+    console.log(true);
+    this.instance = new DriverJs({
+      ...opt,
+      onNext: this.handleNext.bind(this),
+      onPrevious: this.handlePrevious.bind(this),
+      onHighlighted: this.$onHighlighted.bind(this),
+    });
 
-    $lockClick() {
-        this.lockClick = true
-    }
+    return this;
+  }
 
-    /**
-     * should always be called when the next element is about to be highlighted when defining dynamical steps;
-     * it locks click and set step count 
-     * @param {Object} driver.js Element 
-     * @returns @this {Driver}
-     */
-    handleNext({ node }) {
-        this.$lockClick()
-        this.currentStep = this.$getLastIndex(node) + 1
+  $lockClick() {
+    this.lockClick = true;
+  }
 
-        return this
-    }
+  /**
+   * should always be called when the next element is about to be highlighted when defining dynamical steps;
+   * it locks click and set step count
+   * @param {Object} driver.js Element
+   * @returns @this {Driver}
+   */
+  handleNext({ node }) {
+    this.$lockClick();
+    this.currentStep = this.$getLastIndex(node) + 1;
 
-    /**
-     * should always be called when the previous element is about to be highlighted when defining dynamical steps;
-     * it locks click and set step count 
-     * @param {Object} driver.js Element 
-     * @returns @this {Driver}
-     */
-    handlePrevious({ node }) {
-        this.$lockClick()
-        this.currentStep = this.$getLastIndex(node) - 1
+    return this;
+  }
 
-        return this
-    }
+  /**
+   * should always be called when the previous element is about to be highlighted when defining dynamical steps;
+   * it locks click and set step count
+   * @param {Object} driver.js Element
+   * @returns @this {Driver}
+   */
+  handlePrevious({ node }) {
+    this.$lockClick();
+    this.currentStep = this.$getLastIndex(node) - 1;
 
-    $getLastIndex(node) {
-        return this.steps.findIndex(el => el.element == `#${node.id}`)
-    }
+    return this;
+  }
 
-    $onHighlighted() {
-        this.lockClick = false
-    }
+  $getLastIndex(node) {
+    return this.steps.findIndex((el) => el.element == `#${node.id}`);
+  }
 
-    /**
-     * set steps 
-     * @param {Array} steps configuration of steps to be driven throw
-     * @returns @this {Driver}
-     */
-    defineSteps(steps = []) {
-        this.steps = steps
-        this.instance.defineSteps(steps)
+  $onHighlighted() {
+    this.lockClick = false;
+  }
 
-        return this
-    }
+  /**
+   * set steps
+   * @param {Array} steps configuration of steps to be driven throw
+   * @returns @this {Driver}
+   */
+  defineSteps(steps = []) {
+    this.steps = steps;
+    this.instance.defineSteps(steps);
 
-    /**
-     * refresh steps 
-     * @returns @this {Driver}
-     */
-    refreshSteps() {
-        this.defineSteps(this.steps)
+    return this;
+  }
 
-        return this
-    }
+  /**
+   * refresh steps
+   * @returns @this {Driver}
+   */
+  refreshSteps() {
+    this.defineSteps(this.steps);
 
-    $setDefaultValues() {
-        this.defineSteps()
-        this.currentStep = 0
-        this.lockClick = false
-    }
+    return this;
+  }
 
-    /**
-     * reset tour to initial state 
-     * @returns @this {Driver}
-     */
-    reset() {
-        this.$setDefaultValues()
-        this.instance.reset()
+  $setDefaultValues() {
+    this.defineSteps();
+    this.currentStep = 0;
+    this.lockClick = false;
+  }
 
-        return this
-    }
+  /**
+   * reset tour to initial state
+   * @returns @this {Driver}
+   */
+  reset() {
+    this.$setDefaultValues();
+    this.instance.reset();
 
-    /**
-     * start tour from step, accept numbers
-     * @param {Number} [stepNumber] set step to be started from
-     * @returns @this {Driver}
-     */
-    start(stepNumber = 0) {
-        this.instance.start(stepNumber)
-        this.$setCurrentStep()
-        return this
-    }
+    return this;
+  }
 
-    $setCurrentStep() {
-        const stepNode = this.instance.steps[this.instance.currentStep].node
-        this.currentStep = this.$getLastIndex(stepNode)
-    }
+  /**
+   * start tour from step, accept numbers
+   * @param {Number} [stepNumber] set step to be started from
+   * @returns @this {Driver}
+   */
+  start(stepNumber = 0) {
+    this.instance.start(stepNumber);
+    this.$setCurrentStep();
+    return this;
+  }
 
-    /**
-     * prevent move next step 
-     * @returns @this {Driver}
-     */
-    preventMove() {
-        this.instance.preventMove()
+  $setCurrentStep() {
+    const stepNode = this.instance.steps[this.instance.currentStep].node;
+    this.currentStep = this.$getLastIndex(stepNode);
+  }
 
-        return this
-    }
+  /**
+   * prevent move next step
+   * @returns @this {Driver}
+   */
+  preventMove() {
+    this.instance.preventMove();
 
-    /**
-     *  move next step 
-     * @returns @this {Driver}
-     */
-    moveNext() {
-        this.instance.moveNext()
+    return this;
+  }
 
-        return this
-    }
+  /**
+   *  move next step
+   * @returns @this {Driver}
+   */
+  moveNext() {
+    this.instance.moveNext();
 
-    /**
-     * continue tour; it tries to get next visible step and start tour from it 
-     */
-    continue() {
-        const nextStep = this.steps[this.currentStep];
-        const stepId = nextStep.element
-        const stepIndex = this.instance.steps.findIndex(el => `#${el.node.id}` == stepId)
+    return this;
+  }
 
-        this.instance.start(stepIndex)
-    }
+  /**
+   * continue tour; it tries to get next visible step and start tour from it
+   */
+  continue() {
+    const nextStep = this.steps[this.currentStep];
+    const stepId = nextStep.element;
+    const stepIndex = this.instance.steps.findIndex(
+      (el) => `#${el.node.id}` == stepId
+    );
+
+    this.instance.start(stepIndex);
+  }
 }
