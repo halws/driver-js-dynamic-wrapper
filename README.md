@@ -97,6 +97,11 @@ Some of this methods have the same name as in original plugin. They do the same 
 | `preventMove()`            | prevent moving next step                                                            |
 | `continue()`               | continue tour; it tries to get next visible step and start tour from it             |
 
+--- 
+
+| getter             | description                                |
+| ------------------ | ------------------------------------------ |
+| `elementIsVisible` | check if current step's element is visible |
 ## Examples
 
 

@@ -11,7 +11,6 @@ export default class Driver {
    * @returns @this {Driver}
    */
   init(opt = {}) {
-    console.log(true);
     this.instance = new DriverJs({
       ...opt,
       onNext: this.handleNext.bind(this),
@@ -135,6 +134,15 @@ export default class Driver {
     return this;
   }
 
+  get elementIsVisible() {
+    const nextStep = this.steps[this.currentStep];
+    const stepId = nextStep.element;
+    const stepIndex = this.instance.steps.findIndex(
+      (el) => `#${el.node.id}` == stepId
+    );
+
+    return stepIndex >= 0;
+  }
   /**
    * continue tour; it tries to get next visible step and start tour from it
    */
