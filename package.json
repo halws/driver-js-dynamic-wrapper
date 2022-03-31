@@ -22,6 +22,10 @@
   },
   "author": "halws",
   "license": "MIT",
+  "keywords": [
+    "driver.js",
+    "dynamic"
+  ],
   "dependencies": {
     "driver.js": "^0.9.8"
   },
