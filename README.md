@@ -48,36 +48,38 @@ driver
 Back to example with two steps, where 2nd step highlight dynamically created element
 ```js
 const stepsConfig = (Driver) => [
-    {
-        element: '#step-1',
-        popover: {
-            title: 'first title ...',
-            description: 'first description ...'
-        },
-        async onNext(Element) {
-            // prevent double click
-            if (Driver.lockClick) return Driver.preventMove()
-
-            Driver
-                .handleNext(Element)
-                .preventMove()
-
-            // required delay to make DOM element #step-2 became visible
-            // I use delay() as promise-based function, but it possible to wrap code bellow with setTimeout()
-            await delay(500)
-
-                .refreshSteps()
-                .continue()
-        }
+  {
+    element: "#step-1",
+    popover: {
+      title: "first title ...",
+      description: "first description ...",
     },
-        {
-        element: '#step-2',
-        popover: {
-            title: 'second title ...',
-            description: 'second description ...'
-        }
-    }
-];  
+    async onNext(Element) {
+      // prevent double click
+      if (Driver.lockClick) return Driver.preventMove();
+
+      Driver.handleNext(Element).preventMove();
+
+      if (Driver.elementIsVisible) {
+        Driver.continue();
+        return;
+      }
+
+    // required delay to make DOM element #step-2 became visible
+    // I use delay() as promise-based function, but it possible to wrap code bellow with setTimeout()
+    // await delay(500)
+
+      Driver.refreshSteps().continue();
+    },
+  },
+  {
+    element: "#step-2",
+    popover: {
+      title: "second title ...",
+      description: "second description ...",
+    },
+  },
+]; 
 ```
 
 ## API
