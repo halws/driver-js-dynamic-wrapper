@@ -24,10 +24,10 @@ import 'driver.js/dist/driver.min.css';
 
 ### Problem explanation
 
-Problem occurs when defining the steps via original `defineSteps()`. Here it iterates throw DOM elements and skip step if it's not available. So in result dynamic steps are omitted. To "fix" that you should refresh steps right before moving into dynamically created element.
+Problem occurs when defining the steps via original `defineSteps()`. Here library iterates throw DOM elements and skip step if it's not available. So in result **dynamically created steps(delayed) are omitted**. To "fix" that you should refresh steps before moving into dynamically created element.
 
 - Refreshing steps meant to update original driver.js steps to make it catch all currently visible DOM elements defined in steps configuration.
-- Consider you move from first steps to second. The 2nd step highlight  dynamically created element after some action. For example this action take a 500ms. To make `refreshSteps()` "pick up" step you should delay before.
+- Consider you move from first steps to second. The 2nd step highlight  dynamically created element after some action. For example redirection to next page action take a 500ms. To make `refreshSteps()` "pick up" step you should delay before.
 - Delaying is possible to do inside `onNext()` or  `onPrevious()` functions inside steps configuration JSON. In more advanced scenario you could wait for some AJAX request, etc. then call `refreshSteps()`
 
 ### Initial call
