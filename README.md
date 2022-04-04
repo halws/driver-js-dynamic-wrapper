@@ -105,7 +105,7 @@ Some of this methods have the same name as in original plugin. They do the same 
 | ------------------ | ------------------------------------------ |
 | `elementIsVisible` | check if current step's element is visible |
 ## Examples
-
+ - [base dynamic element](https://codesandbox.io/embed/green-field-vjiwjw?fontsize=14&hidenavigation=1&theme=dark)
 
 ## Useful
 
