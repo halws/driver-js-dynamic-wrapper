@@ -1,11 +1,12 @@
 {
   "name": "driver-js-dynamic-wrapper",
   "version": "0.2.1",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/halws/driver-js-dynamic-wrapper.git"
+  "repository": "https://github.com/halws/driver-js-dynamic-wrapper",
+  "homepage": "https://github.com/halws/driver-js-dynamic-wrapper.git#readme",
+  "bugs": {
+    "url": "https://github.com/halws/driver-js-dynamic-wrapper.git/issues"
   },
-  "description": "wrapper around driver.js to provide comfortable async handling",
+  "description": "A wrapper around driver.js to make handling dynamic elements become simpler",
   "main": "dist/main.js",
   "type": "module",
   "css": "dist/style.css",
