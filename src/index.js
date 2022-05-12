@@ -59,6 +59,37 @@ export default class Driver {
     this.lockClick = false;
   }
 
+  async $onNextAuto(callback, Element) {
+    try {
+      // prevent double click
+      if (Driver.lockClick) return this.preventMove();
+
+      this.handleNext(Element).preventMove();
+
+      if (this.elementIsVisible) {
+        this.continue();
+        return;
+      }
+
+      await callback();
+
+      this.refreshSteps().continue();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  $transformSteps(steps) {
+    return steps.map((step) => {
+      if ("onNextAuto" in step) {
+        step.onNext = this.$onNextAuto.bind(this, step.onNextAuto);
+        delete step.onNextAuto;
+      }
+
+      return step;
+    });
+  }
+
   /**
    * set steps
    * @param {Array} steps configuration of steps to be driven throw
@@ -66,7 +97,7 @@ export default class Driver {
    */
   defineSteps(steps = []) {
     this.steps = steps;
-    this.instance.defineSteps(steps);
+    this.instance.defineSteps(this.$transformSteps(steps));
 
     return this;
   }
