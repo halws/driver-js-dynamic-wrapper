@@ -79,11 +79,36 @@ export default class Driver {
     }
   }
 
+  async $onPreviousAuto(callback, Element) {
+    try {
+      // prevent double click
+      if (Driver.lockClick) return this.preventMove();
+
+      this.handlePrevious(Element).preventMove();
+
+      if (this.elementIsVisible) {
+        this.continue();
+        return;
+      }
+
+      await callback();
+
+      this.refreshSteps().continue();
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   $transformSteps(steps) {
     return steps.map((step) => {
       if ("onNextAuto" in step) {
         step.onNext = this.$onNextAuto.bind(this, step.onNextAuto);
         delete step.onNextAuto;
+      }
+
+      if ("onPreviousAuto" in step) {
+        step.onPrevious = this.$onPreviousAuto.bind(this, step.onPreviousAuto);
+        delete step.onPreviousAuto;
       }
 
       return step;
